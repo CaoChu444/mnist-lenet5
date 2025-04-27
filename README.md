@@ -13,11 +13,8 @@ def load_mnist():
 
 
 def preprocess(X, y):
-    # 归一化
     X = X / 255.0
-    # 添加通道维度
     X = np.expand_dims(X, axis=1)
-    # 划分训练测试集
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     return X_train, X_test, y_train, y_test
 
@@ -30,7 +27,6 @@ class Conv2D:
         self.stride = stride
         self.padding = padding
 
-        # Xavier初始化
         scale = np.sqrt(2.0 / (in_channels * kernel_size * kernel_size))
         self.weights = np.random.randn(out_channels, in_channels, kernel_size, kernel_size) * scale
         self.bias = np.zeros(out_channels)
@@ -259,7 +255,6 @@ class LeNet5:
         return dout
 
 
-# 4. 损失函数与评估
 def softmax(x):
     exp_x = np.exp(x - np.max(x, axis=1, keepdims=True))
     return exp_x / np.sum(exp_x, axis=1, keepdims=True)
@@ -285,7 +280,6 @@ def accuracy(y_pred, y_true):
     return np.mean(preds == y_true)
 
 
-# 5. 训练过程
 class SGD:
     def __init__(self, model, lr=0.01, momentum=0.0):
         self.model = model
@@ -461,7 +455,6 @@ def load_params(model, filename):
             layer.bias = params[f'bias_{i}']
 
 
-# 6. 主程序
 def main():
     # 加载并预处理数据
     X, y = load_mnist()

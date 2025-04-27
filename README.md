@@ -5,7 +5,6 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import pickle
 
-# 1. 数据加载与预处理
 def load_mnist():
     mnist = fetch_openml('mnist_784', version=1, as_frame=False)
     X = mnist.data.reshape(-1, 28, 28).astype(np.float32)
@@ -23,7 +22,6 @@ def preprocess(X, y):
     return X_train, X_test, y_train, y_test
 
 
-# 2. LeNet-5核心层实现
 class Conv2D:
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0):
         self.in_channels = in_channels
@@ -219,7 +217,6 @@ class Linear:
         return dx, dw, db
 
 
-# 3. LeNet-5模型
 class LeNet5:
     def __init__(self):
         self.conv1 = Conv2D(1, 6, 5, padding=0)
